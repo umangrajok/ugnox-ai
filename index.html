@@ -307,7 +307,7 @@ body::before{
   font-family:'Outfit',sans-serif;letter-spacing:0.5px;
 }
 .msg-av.u{background:linear-gradient(135deg,rgba(99,102,241,0.3),rgba(139,92,246,0.2));border:1px solid rgba(99,102,241,0.3);color:var(--accent2);}
-.msg-av.a{background:var(--bg5);border:1px solid var(--border2);color:var(--green);}
+.msg-av.a{background:var(--bg5);border:1px solid var(--border2);color:var(--green);display:flex;align-items:center;justify-content:center;}
 
 .msg-content{flex:1;min-width:0;}
 .msg-meta{display:flex;align-items:center;gap:8px;margin-bottom:4px;}
@@ -374,6 +374,41 @@ body::before{
 /* ── FILTER WARN ── */
 .filter-warn{padding:0 24px;max-width:780px;margin:0 auto;}
 .filter-warn-inner{background:rgba(248,113,113,0.1);border:1px solid rgba(248,113,113,0.3);border-radius:10px;padding:12px 16px;font-size:13px;color:var(--red);margin:8px 0;}
+
+/* ── SPARK AVATAR ANIMATIONS ── */
+.spark-av{
+  transition:filter 0.3s;
+  filter:drop-shadow(0 0 3px rgba(139,92,246,0.5));
+}
+.msg-wrap:hover .spark-av{
+  filter:drop-shadow(0 0 6px rgba(167,139,250,0.9)) drop-shadow(0 0 12px rgba(99,102,241,0.4));
+}
+@keyframes sparkSpin{
+  0%{transform:rotate(0deg) scale(1);}
+  25%{transform:rotate(90deg) scale(1.1);}
+  50%{transform:rotate(180deg) scale(1);}
+  75%{transform:rotate(270deg) scale(1.1);}
+  100%{transform:rotate(360deg) scale(1);}
+}
+@keyframes sparkPulseThink{
+  0%,100%{
+    filter:drop-shadow(0 0 4px rgba(139,92,246,0.6));
+    transform:scale(1);
+  }
+  50%{
+    filter:drop-shadow(0 0 12px rgba(167,139,250,1)) drop-shadow(0 0 20px rgba(99,102,241,0.6));
+    transform:scale(1.15);
+  }
+}
+.spark-thinking{
+  animation:sparkSpin 1.8s linear infinite, sparkPulseThink 1.2s ease-in-out infinite;
+  filter:drop-shadow(0 0 8px rgba(167,139,250,0.9));
+}
+.thinking-av{
+  background:rgba(99,102,241,0.08)!important;
+  border-color:rgba(99,102,241,0.35)!important;
+  box-shadow:0 0 14px rgba(99,102,241,0.25)!important;
+}
 
 /* ── TYPING ── */
 .typing-cursor::after{content:'▋';animation:cur .7s infinite;color:var(--accent);}
@@ -742,6 +777,82 @@ body::before{
   text-shadow:0 0 8px rgba(167,139,250,0.6);
 }
 
+/* ── TOOLS SECTION ── */
+.tools-bar{
+  display:flex;align-items:center;gap:8px;
+  padding:8px 14px;border-top:1px solid var(--border);
+}
+.tools-toggle{
+  display:flex;align-items:center;gap:6px;
+  background:rgba(99,102,241,0.08);border:1px solid rgba(99,102,241,0.2);
+  border-radius:20px;padding:5px 12px;
+  font-size:12px;font-weight:600;color:var(--accent2);
+  cursor:pointer;transition:all 0.2s;font-family:"DM Sans",sans-serif;
+}
+.tools-toggle:hover{background:rgba(99,102,241,0.15);border-color:rgba(99,102,241,0.4);box-shadow:0 0 10px rgba(99,102,241,0.15);}
+.tools-toggle svg{stroke:var(--accent2);}
+.tools-chevron{transition:transform 0.25s cubic-bezier(.4,0,.2,1);}
+.tools-chevron.open{transform:rotate(180deg);}
+.tools-active-count{font-size:11px;color:var(--text3);font-weight:500;}
+
+.tools-drawer{
+  max-height:0;overflow:hidden;
+  transition:max-height 0.3s cubic-bezier(.4,0,.2,1),opacity 0.2s;
+  opacity:0;
+}
+.tools-drawer.open{max-height:300px;opacity:1;}
+
+.tools-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:6px;
+  padding:10px 14px 12px;
+}
+@media(max-width:400px){.tools-grid{grid-template-columns:1fr;}}
+
+.tool-item{
+  display:flex;align-items:center;gap:10px;
+  padding:9px 12px;border-radius:11px;
+  background:var(--glass);border:1px solid var(--glass-border);
+  cursor:pointer;transition:all 0.18s;
+}
+.tool-item:hover{background:rgba(99,102,241,0.07);border-color:rgba(99,102,241,0.25);}
+.tool-item.on{background:rgba(99,102,241,0.1);border-color:rgba(99,102,241,0.3);}
+.tool-item.on .tool-icon-wrap{
+  background:rgba(99,102,241,0.2);border-color:rgba(99,102,241,0.45);
+  box-shadow:0 0 10px rgba(99,102,241,0.2);
+}
+.tool-item.on .tool-icon-wrap svg{stroke:var(--accent2);filter:drop-shadow(0 0 3px rgba(167,139,250,0.8));}
+.tool-item.on .tool-name{color:var(--accent2);}
+
+.tool-icon-wrap{
+  width:32px;height:32px;flex-shrink:0;border-radius:8px;
+  background:rgba(99,102,241,0.06);border:1px solid rgba(99,102,241,0.15);
+  display:flex;align-items:center;justify-content:center;transition:all 0.18s;
+}
+.tool-icon-wrap svg{stroke:var(--text3);transition:all 0.18s;}
+.tool-info{flex:1;min-width:0;}
+.tool-name{font-size:12px;font-weight:700;color:var(--text);font-family:"Outfit",sans-serif;line-height:1.2;}
+.tool-desc{font-size:10px;color:var(--text3);margin-top:1px;}
+
+/* Toggle switch */
+.tool-toggle{
+  width:30px;height:16px;border-radius:8px;
+  background:var(--bg5);border:1px solid var(--border2);
+  position:relative;flex-shrink:0;transition:all 0.2s;
+}
+.tool-toggle span{
+  position:absolute;top:2px;left:2px;
+  width:10px;height:10px;border-radius:50%;
+  background:var(--text3);transition:all 0.2s;
+}
+.tool-item.on .tool-toggle{
+  background:rgba(99,102,241,0.3);border-color:rgba(99,102,241,0.5);
+  box-shadow:0 0 6px rgba(99,102,241,0.3);
+}
+.tool-item.on .tool-toggle span{
+  left:16px;background:var(--accent2);
+  box-shadow:0 0 4px rgba(167,139,250,0.8);
+}
+
 /* ── TOAST ── */
 #toast{
   position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);
@@ -860,8 +971,21 @@ body.warm{
 <div id="sidebar">
   <div class="sidebar-logo">
     <div class="logo-mark"><svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" width="22" height="22">
-  <path d="M50 10C50 40 40 50 10 50C40 50 50 60 50 90C50 60 60 50 90 50C60 50 50 40 50 10Z" fill="url(#gs1)"/>
-  <defs><linearGradient id="gs1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#a78bfa"/><stop offset="100%" style="stop-color:#e2e8f0"/></linearGradient></defs>
+  <defs>
+    <linearGradient id="pgs1" x1="20%" y1="0%" x2="80%" y2="100%">
+      <stop offset="0%" stop-color="#c4b5fd"/><stop offset="40%" stop-color="#8b5cf6"/>
+      <stop offset="100%" stop-color="#e2e8f0"/>
+    </linearGradient>
+    <linearGradient id="psh1" x1="30%" y1="10%" x2="55%" y2="55%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.85"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="pglow1"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <path d="M50 10C50 37 37 50 10 50C37 50 50 63 50 90C50 63 63 50 90 50C63 50 50 37 50 10Z" fill="#7c3aed" opacity="0.4" filter="url(#pglow1)" transform="translate(1,2)"/>
+  <path d="M50 10C50 37 37 50 10 50C37 50 50 63 50 90C50 63 63 50 90 50C63 50 50 37 50 10Z" fill="url(#pgs1)" filter="url(#pglow1)"/>
+  <path d="M50 10C50 37 37 50 10 50C37 50 50 63 50 90C50 63 63 50 90 50C63 50 50 37 50 10Z" fill="url(#psh1)" opacity="0.6"/>
+  
 </svg></div>
     <span class="logo-text">UGNOX</span>
     <span class="logo-ver-badge">V4</span>
@@ -909,8 +1033,21 @@ body.warm{
 
     <div class="topbar-logo">
       <div class="tb-logo-mark"><svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" width="22" height="22">
-  <path d="M50 10C50 40 40 50 10 50C40 50 50 60 50 90C50 60 60 50 90 50C60 50 50 40 50 10Z" fill="url(#gs1)"/>
-  <defs><linearGradient id="gs1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#a78bfa"/><stop offset="100%" style="stop-color:#e2e8f0"/></linearGradient></defs>
+  <defs>
+    <linearGradient id="pgs1" x1="20%" y1="0%" x2="80%" y2="100%">
+      <stop offset="0%" stop-color="#c4b5fd"/><stop offset="40%" stop-color="#8b5cf6"/>
+      <stop offset="100%" stop-color="#e2e8f0"/>
+    </linearGradient>
+    <linearGradient id="psh1" x1="30%" y1="10%" x2="55%" y2="55%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.85"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="pglow1"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <path d="M50 10C50 37 37 50 10 50C37 50 50 63 50 90C50 63 63 50 90 50C63 50 50 37 50 10Z" fill="#7c3aed" opacity="0.4" filter="url(#pglow1)" transform="translate(1,2)"/>
+  <path d="M50 10C50 37 37 50 10 50C37 50 50 63 50 90C50 63 63 50 90 50C63 50 50 37 50 10Z" fill="url(#pgs1)" filter="url(#pglow1)"/>
+  <path d="M50 10C50 37 37 50 10 50C37 50 50 63 50 90C50 63 63 50 90 50C63 50 50 37 50 10Z" fill="url(#psh1)" opacity="0.6"/>
+  
 </svg></div>
       <div>
         <div class="tb-name">UGNOX</div>
@@ -960,9 +1097,26 @@ body.warm{
     <!-- WELCOME -->
     <div id="welcome">
       <div class="w-logo-wrap">
-        <div class="w-logo"><svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" width="42" height="42">
-  <path d="M50 10C50 40 40 50 10 50C40 50 50 60 50 90C50 60 60 50 90 50C60 50 50 40 50 10Z" fill="url(#gl1)"/>
-  <defs><linearGradient id="gl1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#a78bfa"/><stop offset="100%" style="stop-color:#e2e8f0"/></linearGradient></defs>
+        <div class="w-logo"><svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" width="46" height="46">
+  <defs>
+    <linearGradient id="pgl1" x1="20%" y1="0%" x2="80%" y2="100%">
+      <stop offset="0%" stop-color="#c4b5fd"/><stop offset="40%" stop-color="#8b5cf6"/>
+      <stop offset="100%" stop-color="#e2e8f0"/>
+    </linearGradient>
+    <linearGradient id="pshl1" x1="30%" y1="10%" x2="55%" y2="55%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.85"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="pglw1"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <path d="M50 10C50 37 37 50 10 50C37 50 50 63 50 90C50 63 63 50 90 50C63 50 50 37 50 10Z" fill="#7c3aed" opacity="0.5" filter="url(#pglw1)" transform="translate(1,2)"/>
+  <path d="M50 10C50 37 37 50 10 50C37 50 50 63 50 90C50 63 63 50 90 50C63 50 50 37 50 10Z" fill="url(#pgl1)" filter="url(#pglw1)"/>
+  <path d="M50 10C50 37 37 50 10 50C37 50 50 63 50 90C50 63 63 50 90 50C63 50 50 37 50 10Z" fill="url(#pshl1)" opacity="0.65"/>
+  
+  <ellipse cx="50" cy="13" rx="2" ry="3" fill="#ddd6fe" opacity="0.7" filter="url(#pglw1)"/>
+  <ellipse cx="50" cy="87" rx="2" ry="3" fill="#ddd6fe" opacity="0.6" filter="url(#pglw1)"/>
+  <ellipse cx="13" cy="50" rx="3" ry="2" fill="#ddd6fe" opacity="0.6" filter="url(#pglw1)"/>
+  <ellipse cx="87" cy="50" rx="3" ry="2" fill="#e2e8f0" opacity="0.8" filter="url(#pglw1)"/>
 </svg></div>
         <div>
           <div class="w-title" id="w-title">Hey! UGNOX V4</div>
@@ -992,7 +1146,7 @@ body.warm{
       <div class="input-top">
         <textarea id="msginput" placeholder="UGNOX se kuch bhi pooch..." rows="1" disabled></textarea>
         <div class="input-btns">
-          <button class="input-btn" id="voicebtn" onclick="toggleVoice()" title="Voice Input"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0014 0M12 19v3M9 22h6"/></svg></button>
+          <button class="input-btn" id="voicebtn" onclick="toggleVoice()" title="Voice Input" style="display:none;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0014 0M12 19v3M9 22h6"/></svg></button>
           <button class="input-btn" id="uploadbtn" onclick="$('fileInput').click()" title="Attach File"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="10" y1="11" x2="14" y2="11"/></svg></button>
           <input type="file" id="fileInput" style="display:none;" accept="image/*,.pdf,.txt,.md,.js,.py,.html,.css,.json" onchange="handleFile(this)"/>
           <button id="sendbtn" disabled onclick="send()">
@@ -1000,18 +1154,87 @@ body.warm{
           </button>
         </div>
       </div>
-      <div class="input-bottom">
-        <div class="fpill on" id="fp-filter" onclick="toggleF('filter')"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg> Filter</div>
-        <div class="fpill" id="fp-search" onclick="toggleF('search')"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg> Search</div>
-        <div class="fpill on" id="fp-memory" onclick="toggleF('memory')"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2a10 10 0 100 20A10 10 0 0012 2z"/><path d="M12 8v4l3 3"/></svg> Memory</div>
-        <div class="fpill on" id="fp-md" onclick="toggleF('md')"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 6h16M4 12h10M4 18h6"/></svg> Markdown</div>
-        <div class="fpill on" id="fp-tts" onclick="toggleF('tts')"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0014 0"/></svg> Voice</div>
-        <div class="fpill on" id="fp-code" onclick="toggleF('code')">> Code Run</div>
-        <select class="lang-sel" id="lang-sel" onchange="setLang(this.value)">
-          <option value="hinglish">Hinglish</option>
-          <option value="hindi">Hindi</option>
-          <option value="english">English</option>
-        </select>
+      <!-- TOOLS BAR -->
+      <div class="tools-bar">
+        <button class="tools-toggle" onclick="toggleTools()" id="tools-toggle-btn">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>
+          Tools
+          <svg class="tools-chevron" id="tools-chevron" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="tools-active-count" id="tools-active-count">4 active</div>
+        <div style="margin-left:auto;">
+          <select class="lang-sel" id="lang-sel" onchange="setLang(this.value)">
+            <option value="hinglish">Hinglish</option>
+            <option value="hindi">Hindi</option>
+            <option value="english">English</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- TOOLS DRAWER -->
+      <div class="tools-drawer" id="tools-drawer">
+        <div class="tools-grid">
+          <div class="tool-item" id="fp-filter" onclick="toggleF('filter')">
+            <div class="tool-icon-wrap">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+            </div>
+            <div class="tool-info">
+              <div class="tool-name">Filter</div>
+              <div class="tool-desc">Safe content filter</div>
+            </div>
+            <div class="tool-toggle" id="tt-filter"><span></span></div>
+          </div>
+          <div class="tool-item" id="fp-search" onclick="toggleF('search')">
+            <div class="tool-icon-wrap">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            </div>
+            <div class="tool-info">
+              <div class="tool-name">Web Search</div>
+              <div class="tool-desc">Real-time Tavily search</div>
+            </div>
+            <div class="tool-toggle" id="tt-search"><span></span></div>
+          </div>
+          <div class="tool-item" id="fp-memory" onclick="toggleF('memory')">
+            <div class="tool-icon-wrap">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 2a10 10 0 100 20A10 10 0 0012 2z"/><path d="M12 8v4l3 3"/></svg>
+            </div>
+            <div class="tool-info">
+              <div class="tool-name">Memory</div>
+              <div class="tool-desc">Long-term context</div>
+            </div>
+            <div class="tool-toggle" id="tt-memory"><span></span></div>
+          </div>
+          <div class="tool-item" id="fp-md" onclick="toggleF('md')">
+            <div class="tool-icon-wrap">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 6h16M4 12h10M4 18h6"/></svg>
+            </div>
+            <div class="tool-info">
+              <div class="tool-name">Markdown</div>
+              <div class="tool-desc">Rich text formatting</div>
+            </div>
+            <div class="tool-toggle" id="tt-md"><span></span></div>
+          </div>
+          <div class="tool-item" id="fp-code" onclick="toggleF('code')">
+            <div class="tool-icon-wrap">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            </div>
+            <div class="tool-info">
+              <div class="tool-name">Code Runner</div>
+              <div class="tool-desc">Run JS & HTML live</div>
+            </div>
+            <div class="tool-toggle" id="tt-code"><span></span></div>
+          </div>
+          <div class="tool-item" id="fp-tts" onclick="toggleF('tts')">
+            <div class="tool-icon-wrap">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0014 0"/></svg>
+            </div>
+            <div class="tool-info">
+              <div class="tool-name">Text to Speech</div>
+              <div class="tool-desc">Auto-read responses</div>
+            </div>
+            <div class="tool-toggle" id="tt-tts"><span></span></div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -1108,7 +1331,7 @@ if(typeof marked!=='undefined')marked.setOptions({breaks:true,gfm:true});
 // ═══ STATE ═══
 let connected=false,busy=false,history=[],currentEditEl=null;
 let memories=[],chats=[],bookmarks=[],pinnedIds=[];
-let features={filter:true,search:false,memory:true,md:true,tts:true,code:true};
+let features={filter:true,search:false,memory:true,md:true,tts:false,code:true};
 let currentLang='hinglish',currentPersona='friend',currentTTS=null;
 let recognition=null,isRecording=false;
 let pendingFile=null,pendingFileData=null;
@@ -1240,7 +1463,7 @@ function applyUILang(){
   const fps=document.getElementById('fp-search');if(fps)fps.textContent=t('search');
   const fpm=document.getElementById('fp-memory');if(fpm)fpm.textContent=t('mem');
   const fpmd=document.getElementById('fp-md');if(fpmd)fpmd.textContent=t('markdown');
-  const fpt=document.getElementById('fp-tts');if(fpt)fpt.textContent=t('voice');
+  // fp-tts hidden
   const fpc=document.getElementById('fp-code');if(fpc)fpc.textContent=t('code');
   const mpt=document.querySelector('#mempanel .panel-title');if(mpt)mpt.textContent=t('memTitle');
   const msr=document.getElementById('mem-search');if(msr)msr.placeholder=t('memSearch');
@@ -1424,7 +1647,9 @@ function addMsg(role,text,animate=false,msgId=null){
   const id=msgId||'msg-'+Date.now()+Math.random().toString(36).slice(2,6);
   const wrap=document.createElement('div');wrap.className='msg-wrap';wrap.id=id;
   const inner=document.createElement('div');inner.className='msg-inner';
-  const av=document.createElement('div');av.className='msg-av '+(role==='user'?'u':'a');av.textContent=role==='user'?'U':'AI';
+  const av=document.createElement('div');av.className='msg-av '+(role==='user'?'u':'a');
+  if(role==='user'){av.textContent='U';}
+  else{av.innerHTML=`<svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" width="18" height="18" class="spark-av">  <defs>    <linearGradient id="pgav" x1="20%" y1="0%" x2="80%" y2="100%">      <stop offset="0%" stop-color="#c4b5fd"/><stop offset="40%" stop-color="#8b5cf6"/>      <stop offset="100%" stop-color="#e2e8f0"/>    </linearGradient>    <linearGradient id="pshav" x1="30%" y1="10%" x2="55%" y2="55%">      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.8"/>      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>    </linearGradient>    <filter id="pgav_f"><feGaussianBlur stdDeviation="2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>  </defs>  <path d="M50 10C50 37 37 50 10 50C37 50 50 63 50 90C50 63 63 50 90 50C63 50 50 37 50 10Z" fill="#7c3aed" opacity="0.4" filter="url(#pgav_f)" transform="translate(1,1.5)"/>  <path d="M50 10C50 37 37 50 10 50C37 50 50 63 50 90C50 63 63 50 90 50C63 50 50 37 50 10Z" fill="url(#pgav)" filter="url(#pgav_f)"/>  <path d="M50 10C50 37 37 50 10 50C37 50 50 63 50 90C50 63 63 50 90 50C63 50 50 37 50 10Z" fill="url(#pshav)" opacity="0.55"/>  </svg>`;}
   const content=document.createElement('div');content.className='msg-content';
   const meta=document.createElement('div');meta.className='msg-meta';
   const name=document.createElement('span');name.className='msg-name '+(role==='user'?'u':'a');
@@ -1495,7 +1720,7 @@ function showTyping(){
   const area=$('msgarea');
   const wrap=document.createElement('div');wrap.className='msg-wrap';wrap.id='typing-row';
   const inner=document.createElement('div');inner.className='msg-inner';
-  const av=document.createElement('div');av.className='msg-av a';av.textContent='AI';
+  const av=document.createElement('div');av.className='msg-av a thinking-av';av.innerHTML=`<svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" width="18" height="18" class="spark-thinking">  <defs>    <linearGradient id="pgth" x1="20%" y1="0%" x2="80%" y2="100%">      <stop offset="0%" stop-color="#c4b5fd"/><stop offset="40%" stop-color="#8b5cf6"/>      <stop offset="100%" stop-color="#e2e8f0"/>    </linearGradient>    <linearGradient id="pshth" x1="30%" y1="10%" x2="55%" y2="55%">      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.85"/>      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>    </linearGradient>    <filter id="pgth_f"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>  </defs>  <path d="M50 10C50 37 37 50 10 50C37 50 50 63 50 90C50 63 63 50 90 50C63 50 50 37 50 10Z" fill="#7c3aed" opacity="0.5" filter="url(#pgth_f)" transform="translate(1,2)"/>  <path d="M50 10C50 37 37 50 10 50C37 50 50 63 50 90C50 63 63 50 90 50C63 50 50 37 50 10Z" fill="url(#pgth)" filter="url(#pgth_f)"/>  <path d="M50 10C50 37 37 50 10 50C37 50 50 63 50 90C50 63 63 50 90 50C63 50 50 37 50 10Z" fill="url(#pshth)" opacity="0.6"/>    <ellipse cx="50" cy="13" rx="2" ry="3" fill="#ddd6fe" opacity="0.7"/>  <ellipse cx="87" cy="50" rx="3" ry="2" fill="#e2e8f0" opacity="0.8"/></svg>`;
   const c=document.createElement('div');c.className='msg-content';
   const n=document.createElement('div');n.className='msg-name a';n.textContent='UGNOX';
   const st=document.createElement('div');st.className='typing-status';st.id='typing-status';st.textContent='Thinking...';
@@ -1589,9 +1814,26 @@ function newChat(){
   if(history.length>0){const title=(gk('name')||'Umang')+' — '+history[0]?.content?.slice(0,28)+'...';const id=Date.now();chats.unshift({id,title,history:[...history]});if(chats.length>30)chats.pop();saveChats();}
   history=[];window._curChatId=null;$('msgarea').innerHTML='';clearFile();
   const w=document.createElement('div');w.id='welcome';w.style.cssText='flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;padding:40px 24px;animation:fadeIn 0.5s ease;';
-  w.innerHTML=`<div class="w-logo-wrap"><div class="w-logo"><svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" width="42" height="42">
-  <path d="M50 10C50 40 40 50 10 50C40 50 50 60 50 90C50 60 60 50 90 50C60 50 50 40 50 10Z" fill="url(#gl1)"/>
-  <defs><linearGradient id="gl1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#a78bfa"/><stop offset="100%" style="stop-color:#e2e8f0"/></linearGradient></defs>
+  w.innerHTML=`<div class="w-logo-wrap"><div class="w-logo"><svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" width="46" height="46">
+  <defs>
+    <linearGradient id="pgl1" x1="20%" y1="0%" x2="80%" y2="100%">
+      <stop offset="0%" stop-color="#c4b5fd"/><stop offset="40%" stop-color="#8b5cf6"/>
+      <stop offset="100%" stop-color="#e2e8f0"/>
+    </linearGradient>
+    <linearGradient id="pshl1" x1="30%" y1="10%" x2="55%" y2="55%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.85"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="pglw1"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <path d="M50 10C50 37 37 50 10 50C37 50 50 63 50 90C50 63 63 50 90 50C63 50 50 37 50 10Z" fill="#7c3aed" opacity="0.5" filter="url(#pglw1)" transform="translate(1,2)"/>
+  <path d="M50 10C50 37 37 50 10 50C37 50 50 63 50 90C50 63 63 50 90 50C63 50 50 37 50 10Z" fill="url(#pgl1)" filter="url(#pglw1)"/>
+  <path d="M50 10C50 37 37 50 10 50C37 50 50 63 50 90C50 63 63 50 90 50C63 50 50 37 50 10Z" fill="url(#pshl1)" opacity="0.65"/>
+  
+  <ellipse cx="50" cy="13" rx="2" ry="3" fill="#ddd6fe" opacity="0.7" filter="url(#pglw1)"/>
+  <ellipse cx="50" cy="87" rx="2" ry="3" fill="#ddd6fe" opacity="0.6" filter="url(#pglw1)"/>
+  <ellipse cx="13" cy="50" rx="3" ry="2" fill="#ddd6fe" opacity="0.6" filter="url(#pglw1)"/>
+  <ellipse cx="87" cy="50" rx="3" ry="2" fill="#e2e8f0" opacity="0.8" filter="url(#pglw1)"/>
 </svg></div><div><div class="w-title">New Chat</div><div class="w-sub">Kya poochna hai ${gk('name')||'bhai'}?</div></div></div>`;
   $('msgarea').appendChild(w);
 }
@@ -1888,6 +2130,7 @@ if(gk('lang')){$('lang-sel').value=gk('lang');}
 document.querySelectorAll('.persona-card').forEach(c=>c.classList.toggle('on',c.dataset.p===currentPersona));
 // Apply UI language on load
 setTimeout(applyUILang, 50);
+setTimeout(updateToolStates, 60);
 renderChips();
 
 if(gk('groq')){
