@@ -9,6 +9,8 @@
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
 
 <style>
@@ -109,10 +111,9 @@ body::before{
 }
 .logo-mark{
   width:34px;height:34px;border-radius:10px;flex-shrink:0;
-  background:linear-gradient(135deg,#6366f1,#8b5cf6);
+  background:#0d0d18;border:1px solid rgba(167,139,250,0.2);
   display:flex;align-items:center;justify-content:center;
-  font-family:'Outfit',sans-serif;font-weight:900;font-size:12px;color:#fff;
-  letter-spacing:1px;box-shadow:0 0 12px rgba(99,102,241,0.4);
+  box-shadow:0 0 14px rgba(139,92,246,0.35);
 }
 .logo-text{font-family:'Outfit',sans-serif;font-weight:800;font-size:16px;letter-spacing:2px;color:var(--text);}
 .logo-ver-badge{
@@ -165,12 +166,20 @@ body::before{
 }
 .mem-badge{
   background:var(--glass);border:1px solid var(--glass-border);
-  border-radius:10px;padding:10px 12px;
-  font-size:12px;color:var(--text2);
-  display:flex;align-items:center;gap:8px;cursor:pointer;
+  border-radius:10px;padding:11px 14px;
+  font-size:13px;color:var(--text2);
+  display:flex;align-items:center;gap:10px;cursor:pointer;
   transition:all 0.2s;
 }
-.mem-badge:hover{border-color:var(--border3);color:var(--text);}
+.mem-badge:hover{
+  border-color:rgba(99,102,241,0.45);color:var(--accent2);
+  background:rgba(99,102,241,0.07);
+  box-shadow:0 0 14px rgba(99,102,241,0.2);
+}
+.mem-badge:hover span:first-child{
+  text-shadow:0 0 8px rgba(167,139,250,0.9),0 0 16px rgba(99,102,241,0.5);
+  color:var(--accent2);
+}
 .mem-count{margin-left:auto;background:var(--accent);color:#fff;font-size:9px;padding:2px 7px;border-radius:8px;font-weight:700;}
 
 .theme-row{display:flex;gap:5px;align-items:center;padding:2px 2px;}
@@ -221,10 +230,9 @@ body::before{
 .topbar-logo{display:flex;align-items:center;gap:8px;}
 .tb-logo-mark{
   width:32px;height:32px;border-radius:8px;
-  background:linear-gradient(135deg,#6366f1,#8b5cf6);
+  background:#0d0d18;border:1px solid rgba(167,139,250,0.2);
   display:flex;align-items:center;justify-content:center;
-  font-family:'Outfit',sans-serif;font-weight:900;font-size:11px;color:#fff;
-  letter-spacing:1px;box-shadow:0 0 10px rgba(99,102,241,0.3);
+  box-shadow:0 0 10px rgba(139,92,246,0.3);
 }
 .tb-name{font-family:'Outfit',sans-serif;font-weight:800;font-size:16px;letter-spacing:1.5px;}
 .tb-ver{font-size:9px;font-weight:700;letter-spacing:2px;color:var(--accent2);font-family:'Outfit',sans-serif;}
@@ -393,11 +401,15 @@ body::before{
 .w-logo-wrap{display:flex;flex-direction:column;align-items:center;gap:14px;}
 .w-logo{
   width:80px;height:80px;border-radius:22px;
-  background:linear-gradient(135deg,#6366f1,#8b5cf6,#a855f7);
+  background:radial-gradient(ellipse at 30% 30%,#1a1030 0%,#0a0a14 100%);
+  border:1px solid rgba(167,139,250,0.2);
   display:flex;align-items:center;justify-content:center;
-  font-family:'Outfit',sans-serif;font-weight:900;font-size:22px;color:#fff;
-  letter-spacing:2px;
-  box-shadow:0 0 0 1px rgba(99,102,241,0.3),0 0 40px rgba(99,102,241,0.2),0 20px 60px rgba(0,0,0,0.4);
+  box-shadow:0 0 0 1px rgba(139,92,246,0.2),0 0 50px rgba(139,92,246,0.2),0 20px 60px rgba(0,0,0,0.5);
+  animation:sparkPulse 3s ease-in-out infinite;
+}
+@keyframes sparkPulse{
+  0%,100%{box-shadow:0 0 0 1px rgba(139,92,246,0.2),0 0 30px rgba(139,92,246,0.15);}
+  50%{box-shadow:0 0 0 1px rgba(167,139,250,0.4),0 0 60px rgba(139,92,246,0.35),0 0 100px rgba(99,102,241,0.1);}
 }
 .w-title{
   font-family:'Outfit',sans-serif;font-size:32px;font-weight:800;
@@ -407,15 +419,15 @@ body::before{
 }
 .w-sub{font-size:15px;color:var(--text3);text-align:center;font-weight:400;}
 
-.qgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:580px;width:100%;}
-
-@media(max-width:500px){.qgrid{grid-template-columns:1fr;}}
+.qgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:600px;width:100%;}
+@media(max-width:520px){.qgrid{grid-template-columns:1fr;}}
 
 .qcard{
   background:var(--glass);border:1px solid var(--glass-border);
-  border-radius:14px;padding:16px;cursor:pointer;
+  border-radius:14px;padding:14px 16px;cursor:pointer;
   transition:all 0.2s cubic-bezier(.4,0,.2,1);text-align:left;
   position:relative;overflow:hidden;
+  display:flex;align-items:center;gap:14px;
 }
 .qcard::before{
   content:'';position:absolute;inset:0;
@@ -424,14 +436,32 @@ body::before{
 }
 .qcard:hover{
   background:rgba(99,102,241,0.08);
-  border-color:rgba(99,102,241,0.3);
+  border-color:rgba(99,102,241,0.35);
   transform:translateY(-2px);
-  box-shadow:0 8px 30px rgba(0,0,0,0.3),var(--glow-sm);
+  box-shadow:0 8px 30px rgba(0,0,0,0.3),0 0 20px rgba(99,102,241,0.12);
 }
 .qcard:hover::before{opacity:1;}
-.qcard-icon{font-size:20px;margin-bottom:8px;}
-.qcard-title{font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px;font-family:'Outfit',sans-serif;}
-.qcard-sub{font-size:12px;color:var(--text3);}
+.qcard:hover .qcard-icon-wrap{
+  background:rgba(99,102,241,0.2);
+  border-color:rgba(99,102,241,0.5);
+  box-shadow:0 0 14px rgba(99,102,241,0.3),inset 0 0 8px rgba(99,102,241,0.1);
+}
+.qcard:hover .qcard-icon-wrap svg{
+  stroke:var(--accent2);
+  filter:drop-shadow(0 0 4px rgba(167,139,250,0.8));
+}
+.qcard-icon-wrap{
+  width:46px;height:46px;flex-shrink:0;
+  border-radius:12px;
+  background:rgba(99,102,241,0.08);
+  border:1px solid rgba(99,102,241,0.2);
+  display:flex;align-items:center;justify-content:center;
+  transition:all 0.2s;
+}
+.qcard-icon-wrap svg{stroke:var(--accent3);transition:all 0.2s;}
+.qcard-body{flex:1;min-width:0;}
+.qcard-title{font-size:13px;font-weight:700;color:var(--text);margin-bottom:3px;font-family:'Outfit',sans-serif;}
+.qcard-sub{font-size:11.5px;color:var(--text3);line-height:1.4;}
 
 /* ── INPUT ── */
 #inputwrap{
@@ -463,12 +493,23 @@ body::before{
 #msginput:disabled{opacity:.3;cursor:not-allowed;}
 .input-btns{display:flex;align-items:center;gap:3px;padding:6px;}
 .input-btn{
-  background:transparent;border:none;color:var(--text3);
-  width:38px;height:38px;border-radius:8px;cursor:pointer;
+  background:rgba(99,102,241,0.05);
+  border:1px solid rgba(99,102,241,0.12);
+  width:38px;height:38px;border-radius:9px;cursor:pointer;
   display:flex;align-items:center;justify-content:center;
-  font-size:17px;transition:all 0.2s;
+  transition:all 0.2s;
 }
-.input-btn:hover{background:var(--bg5);color:var(--accent2);}
+.input-btn svg{stroke:var(--text3);transition:all 0.2s;}
+.input-btn:hover{
+  background:rgba(99,102,241,0.15);
+  border-color:rgba(99,102,241,0.4);
+  box-shadow:0 0 12px rgba(99,102,241,0.2);
+}
+.input-btn:hover svg{
+  stroke:var(--accent2);
+  filter:drop-shadow(0 0 4px rgba(167,139,250,0.8));
+}
+.input-btn.rec svg{stroke:var(--red);filter:drop-shadow(0 0 4px rgba(248,113,113,0.8));animation:recP 1s infinite;}
 .input-btn.rec{color:var(--red);background:rgba(248,113,113,0.1);animation:recP 1s infinite;}
 @keyframes recP{0%,100%{opacity:1;}50%{opacity:.3;}}
 #sendbtn{
@@ -486,13 +527,22 @@ body::before{
   padding:6px 16px 12px;flex-wrap:wrap;
 }
 .fpill{
-  display:flex;align-items:center;gap:4px;
-  font-size:11px;color:var(--text3);cursor:pointer;
-  padding:3px 9px;border-radius:20px;
-  border:1px solid transparent;transition:all 0.15s;white-space:nowrap;user-select:none;
-  font-weight:500;
+  display:flex;align-items:center;gap:5px;
+  font-size:12px;color:var(--text3);cursor:pointer;
+  padding:4px 11px;border-radius:20px;
+  border:1px solid transparent;transition:all 0.18s;white-space:nowrap;user-select:none;
+  font-weight:600;letter-spacing:0.2px;
 }
-.fpill:hover,.fpill.on{color:var(--accent2);border-color:rgba(99,102,241,0.3);background:rgba(99,102,241,0.08);}
+.fpill:hover,.fpill.on{
+  color:var(--accent2);
+  border-color:rgba(99,102,241,0.35);
+  background:rgba(99,102,241,0.1);
+  box-shadow:0 0 10px rgba(99,102,241,0.15),inset 0 0 8px rgba(99,102,241,0.06);
+}
+.fpill:hover svg,.fpill.on svg{
+  stroke:var(--accent2);
+  filter:drop-shadow(0 0 3px rgba(167,139,250,0.9));
+}
 .lang-sel{
   background:var(--bg4);border:1px solid var(--border);
   color:var(--text2);font-size:11px;padding:3px 8px;
@@ -669,6 +719,29 @@ body::before{
 }
 .sm-save:hover{opacity:0.9;box-shadow:0 0 25px rgba(99,102,241,0.5);}
 
+/* ── SUGGESTION CHIPS ── */
+#suggestion-chips{
+  display:flex;gap:6px;padding:8px 16px 4px;
+  overflow-x:auto;scrollbar-width:none;flex-shrink:0;
+}
+#suggestion-chips::-webkit-scrollbar{display:none;}
+.chip{
+  background:var(--glass);border:1px solid var(--glass-border);
+  border-radius:20px;padding:6px 14px;
+  font-size:12px;color:var(--text2);
+  cursor:pointer;white-space:nowrap;
+  transition:all 0.18s;font-family:"DM Sans",sans-serif;font-weight:600;
+  flex-shrink:0;
+}
+.chip:hover{
+  background:rgba(99,102,241,0.12);
+  border-color:rgba(99,102,241,0.4);
+  color:var(--accent2);
+  transform:translateY(-2px);
+  box-shadow:0 0 12px rgba(99,102,241,0.2),0 4px 12px rgba(0,0,0,0.2);
+  text-shadow:0 0 8px rgba(167,139,250,0.6);
+}
+
 /* ── TOAST ── */
 #toast{
   position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);
@@ -731,6 +804,28 @@ body.warm{
   --green:#34d399;--text:#fff4d6;--text2:#c09050;--text3:#604020;
 }
 
+/* ── SYMBOL GLOW (global — all Unicode symbols in UI) ── */
+.fpill.on > *:first-child,
+.mem-badge:hover > span:first-child,
+.mact-btn:hover,
+.panel-close:hover,
+.menu-btn:hover svg{
+  filter:drop-shadow(0 0 4px rgba(167,139,250,0.7));
+}
+.theme-dot:hover,.theme-dot.on{
+  box-shadow:0 0 8px rgba(99,102,241,0.6),0 0 16px rgba(99,102,241,0.3)!important;
+}
+/* mact-btn glow */
+.mact-btn{
+  background:transparent;border:none;cursor:pointer;
+  font-size:14px;color:var(--text3);
+  padding:3px 6px;border-radius:5px;transition:all 0.15s;
+}
+.mact-btn:hover{
+  background:var(--bg4);color:var(--accent2);
+  text-shadow:0 0 8px rgba(167,139,250,0.7);
+}
+
 /* ── SCROLLBAR GLOBAL ── */
 ::-webkit-scrollbar{width:4px;height:4px;}
 ::-webkit-scrollbar-track{background:transparent;}
@@ -753,7 +848,7 @@ body.warm{
 
 <!-- INSTALL BANNER -->
 <div id="install-banner">
-  <div class="install-title">📱 Install UGNOX</div>
+  <div class="install-title">Install UGNOX</div>
   <div class="install-sub">App ki tarah use karo — offline bhi!</div>
   <div class="install-btns">
     <button class="install-btn primary" onclick="installApp()">Install</button>
@@ -764,7 +859,10 @@ body.warm{
 <!-- SIDEBAR -->
 <div id="sidebar">
   <div class="sidebar-logo">
-    <div class="logo-mark">UX</div>
+    <div class="logo-mark"><svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" width="22" height="22">
+  <path d="M50 10C50 40 40 50 10 50C40 50 50 60 50 90C50 60 60 50 90 50C60 50 50 40 50 10Z" fill="url(#gs1)"/>
+  <defs><linearGradient id="gs1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#a78bfa"/><stop offset="100%" style="stop-color:#e2e8f0"/></linearGradient></defs>
+</svg></div>
     <span class="logo-text">UGNOX</span>
     <span class="logo-ver-badge">V4</span>
   </div>
@@ -782,11 +880,11 @@ body.warm{
 
   <div class="sidebar-footer">
     <div class="mem-badge" onclick="openPanel('mem')">
-      <span>🧠</span> <span>Memory</span>
+      <span>◈</span> <span>Memory</span>
       <span class="mem-count" id="memcount">0</span>
     </div>
     <div class="mem-badge" onclick="openPanel('bk')">
-      <span>🔖</span> <span>Bookmarks</span>
+      <span>◇</span> <span>Bookmarks</span>
       <span class="mem-count" id="bkcount" style="background:var(--bg5);color:var(--text3);">0</span>
     </div>
     <div class="theme-row">
@@ -810,7 +908,10 @@ body.warm{
     </button>
 
     <div class="topbar-logo">
-      <div class="tb-logo-mark">UX</div>
+      <div class="tb-logo-mark"><svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" width="22" height="22">
+  <path d="M50 10C50 40 40 50 10 50C40 50 50 60 50 90C50 60 60 50 90 50C60 50 50 40 50 10Z" fill="url(#gs1)"/>
+  <defs><linearGradient id="gs1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#a78bfa"/><stop offset="100%" style="stop-color:#e2e8f0"/></linearGradient></defs>
+</svg></div>
       <div>
         <div class="tb-name">UGNOX</div>
         <div class="tb-ver">V4 · PERSONAL AI</div>
@@ -838,10 +939,10 @@ body.warm{
           Export
         </button>
         <div class="export-menu" id="exportmenu" style="display:none;">
-          <div class="export-item" onclick="exportTXT()">📄 Text File</div>
-          <div class="export-item" onclick="exportJSON()">🗂 JSON</div>
-          <div class="export-item" onclick="exportPDF()">📋 PDF</div>
-          <div class="export-item" onclick="shareChat()">🔗 Share Link</div>
+          <div class="export-item" onclick="exportTXT()">Text File</div>
+          <div class="export-item" onclick="exportJSON()">JSON</div>
+          <div class="export-item" onclick="exportPDF()">PDF</div>
+          <div class="export-item" onclick="shareChat()">Share Link</div>
         </div>
       </div>
 
@@ -859,19 +960,22 @@ body.warm{
     <!-- WELCOME -->
     <div id="welcome">
       <div class="w-logo-wrap">
-        <div class="w-logo">UX</div>
+        <div class="w-logo"><svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" width="42" height="42">
+  <path d="M50 10C50 40 40 50 10 50C40 50 50 60 50 90C50 60 60 50 90 50C60 50 50 40 50 10Z" fill="url(#gl1)"/>
+  <defs><linearGradient id="gl1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#a78bfa"/><stop offset="100%" style="stop-color:#e2e8f0"/></linearGradient></defs>
+</svg></div>
         <div>
-          <div class="w-title" id="w-title">Hey! UGNOX V4 🚀</div>
+          <div class="w-title" id="w-title">Hey! UGNOX V4</div>
           <div class="w-sub">Settings mein Groq key daalo aur connect karo</div>
         </div>
       </div>
       <div class="qgrid">
-        <button class="qcard" onclick="quick('Mujhe ek zero-investment India startup idea de with full roadmap aur market analysis')"><div class="qcard-icon">💡</div><div class="qcard-title">Startup Idea</div><div class="qcard-sub">Full business plan generate karo</div></button>
-        <button class="qcard" onclick="quick('Mera code debug karo — yeh error aa rahi hai: TypeError: cannot read properties of undefined')"><div class="qcard-icon">🐛</div><div class="qcard-title">Code Debug</div><div class="qcard-sub">Error fix karo instantly</div></button>
-        <button class="qcard" onclick="quick('Ek cyberpunk Mumbai ka ultra-detailed AI image banao')"><div class="qcard-icon">🎨</div><div class="qcard-title">Image Generate</div><div class="qcard-sub">FLUX se banao creative images</div></button>
-        <button class="qcard" onclick="quick('India GDP growth chart banao 2019 se 2024 tak with analysis')"><div class="qcard-icon">📊</div><div class="qcard-title">Data Charts</div><div class="qcard-sub">Live charts visualize karo</div></button>
-        <button class="qcard" onclick="quick('Mujhe legendary roast karo bhai — full power on karo')"><div class="qcard-icon">🔥</div><div class="qcard-title">Roast Mode</div><div class="qcard-sub">Agar himmat ho toh 😈</div></button>
-        <button class="qcard" onclick="quick('Aaj ki top 5 tech news India mein kya hai? Latest updates do')"><div class="qcard-icon">📰</div><div class="qcard-title">Latest News</div><div class="qcard-sub">Real-time web search</div></button>
+        <button class="qcard" onclick="quick('Mujhe ek zero-investment India startup idea de with full roadmap aur market analysis')"><div class="qcard-icon-wrap"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 21h6M12 3a6 6 0 016 6c0 2.22-1.2 4.16-3 5.2V17H9v-2.8A6 6 0 0112 3z"/></svg></div><div class="qcard-body"><div class="qcard-title">Startup Idea</div><div class="qcard-sub">Full business plan generate karo</div></div></button>
+        <button class="qcard" onclick="quick('Mera code debug karo — yeh error aa rahi hai: TypeError: cannot read properties of undefined')"><div class="qcard-icon-wrap"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2a4 4 0 014 4"/><path d="M8 6a4 4 0 014-4"/><rect x="8" y="10" width="8" height="10" rx="2"/><path d="M8 13H4m16 0h-4M8 17H4m16 0h-4M12 20v2"/></svg></div><div class="qcard-body"><div class="qcard-title">Code Debug</div><div class="qcard-sub">Error fix karo instantly</div></div></button>
+        <button class="qcard" onclick="quick('Ek cyberpunk Mumbai ka ultra-detailed AI image banao')"><div class="qcard-icon-wrap"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div><div class="qcard-body"><div class="qcard-title">Image Generate</div><div class="qcard-sub">FLUX se banao creative images</div></div></button>
+        <button class="qcard" onclick="quick('India GDP growth chart banao 2019 se 2024 tak with analysis')"><div class="qcard-icon-wrap"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 3v18h18"/><path d="M18 9l-5 5-4-4-3 3"/></svg></div><div class="qcard-body"><div class="qcard-title">Data Charts</div><div class="qcard-sub">Live charts visualize karo</div></div></button>
+        <button class="qcard" onclick="quick('Mujhe legendary roast karo bhai — full power on karo')"><div class="qcard-icon-wrap"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2c0 6-8 8-8 14a8 8 0 0016 0c0-6-8-8-8-14z"/><path d="M12 12c0 3-3 4-3 7a3 3 0 006 0c0-3-3-4-3-7z"/></svg></div><div class="qcard-body"><div class="qcard-title">Roast Mode</div><div class="qcard-sub">Sach sun ne ki himmat hai?</div></div></button>
+        <button class="qcard" onclick="quick('Aaj ki top 5 tech news India mein kya hai? Latest updates do')"><div class="qcard-icon-wrap"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10l6 6v8a2 2 0 01-2 2z"/><path d="M17 20v-8H7M7 8h3"/></svg></div><div class="qcard-body"><div class="qcard-title">Latest News</div><div class="qcard-sub">Real-time web search</div></div></button>
       </div>
     </div>
   </div>
@@ -879,27 +983,30 @@ body.warm{
   <!-- FILE PREVIEW -->
   <div id="file-preview-wrap" class="file-preview" style="display:none;"></div>
 
+  <!-- SUGGESTION CHIPS -->
+  <div id="suggestion-chips"></div>
+
   <!-- INPUT -->
   <div id="inputwrap">
     <div class="input-box">
       <div class="input-top">
         <textarea id="msginput" placeholder="UGNOX se kuch bhi pooch..." rows="1" disabled></textarea>
         <div class="input-btns">
-          <button class="input-btn" id="voicebtn" onclick="toggleVoice()" title="Voice Input">🎤</button>
-          <button class="input-btn" id="uploadbtn" onclick="$('fileInput').click()" title="Attach File">📎</button>
+          <button class="input-btn" id="voicebtn" onclick="toggleVoice()" title="Voice Input"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0014 0M12 19v3M9 22h6"/></svg></button>
+          <button class="input-btn" id="uploadbtn" onclick="$('fileInput').click()" title="Attach File"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="10" y1="11" x2="14" y2="11"/></svg></button>
           <input type="file" id="fileInput" style="display:none;" accept="image/*,.pdf,.txt,.md,.js,.py,.html,.css,.json" onchange="handleFile(this)"/>
           <button id="sendbtn" disabled onclick="send()">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
           </button>
         </div>
       </div>
       <div class="input-bottom">
-        <div class="fpill on" id="fp-filter" onclick="toggleF('filter')">🛡 Filter</div>
-        <div class="fpill" id="fp-search" onclick="toggleF('search')">🌐 Search</div>
-        <div class="fpill on" id="fp-memory" onclick="toggleF('memory')">🧠 Memory</div>
-        <div class="fpill on" id="fp-md" onclick="toggleF('md')">✦ Markdown</div>
-        <div class="fpill on" id="fp-tts" onclick="toggleF('tts')">🔊 Voice</div>
-        <div class="fpill on" id="fp-code" onclick="toggleF('code')">⚡ Code Run</div>
+        <div class="fpill on" id="fp-filter" onclick="toggleF('filter')"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg> Filter</div>
+        <div class="fpill" id="fp-search" onclick="toggleF('search')"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg> Search</div>
+        <div class="fpill on" id="fp-memory" onclick="toggleF('memory')"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2a10 10 0 100 20A10 10 0 0012 2z"/><path d="M12 8v4l3 3"/></svg> Memory</div>
+        <div class="fpill on" id="fp-md" onclick="toggleF('md')"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 6h16M4 12h10M4 18h6"/></svg> Markdown</div>
+        <div class="fpill on" id="fp-tts" onclick="toggleF('tts')"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0014 0"/></svg> Voice</div>
+        <div class="fpill on" id="fp-code" onclick="toggleF('code')">> Code Run</div>
         <select class="lang-sel" id="lang-sel" onchange="setLang(this.value)">
           <option value="hinglish">Hinglish</option>
           <option value="hindi">Hindi</option>
@@ -913,7 +1020,7 @@ body.warm{
 <!-- MEMORY PANEL -->
 <div id="mempanel">
   <div class="panel-hdr">
-    <span>🧠</span>
+    <span>◈</span>
     <span class="panel-title">Long-term Memory</span>
     <button class="panel-close" onclick="closePanel('mem')">✕</button>
   </div>
@@ -928,7 +1035,7 @@ body.warm{
 <!-- BOOKMARKS PANEL -->
 <div id="bookmarks-panel">
   <div class="panel-hdr">
-    <span>🔖</span>
+    <span>◇</span>
     <span class="panel-title">Bookmarks</span>
     <button class="panel-close" onclick="closePanel('bk')">✕</button>
   </div>
@@ -939,7 +1046,7 @@ body.warm{
 <div id="s-overlay" onclick="overlayClick(event)">
   <div id="s-modal">
     <div class="sm-hdr">
-      <div class="sm-icon">⚙️</div>
+      <div class="sm-icon"></div>
       <span class="sm-title">UGNOX Settings</span>
       <button class="sm-close" onclick="closeSettings()">✕</button>
     </div>
@@ -980,10 +1087,10 @@ body.warm{
       <hr class="divider-line"/>
       <div class="sm-section">AI Persona</div>
       <div class="persona-grid" id="persona-grid">
-        <div class="persona-card on" data-p="friend" onclick="selectPersona(this)"><div class="pi">😎</div><div class="pt">Best Friend</div><div class="ps">Casual Hinglish, witty</div></div>
-        <div class="persona-card" data-p="mentor" onclick="selectPersona(this)"><div class="pi">🎓</div><div class="pt">Strict Mentor</div><div class="ps">Direct, tough love</div></div>
-        <div class="persona-card" data-p="tutor" onclick="selectPersona(this)"><div class="pi">📚</div><div class="pt">Study Buddy</div><div class="ps">Patient, step-by-step</div></div>
-        <div class="persona-card" data-p="biz" onclick="selectPersona(this)"><div class="pi">💼</div><div class="pt">Business Coach</div><div class="ps">Startup, entrepreneur</div></div>
+        <div class="persona-card on" data-p="friend" onclick="selectPersona(this)"><div class="pi"></div><div class="pt">Best Friend</div><div class="ps">Casual Hinglish, witty</div></div>
+        <div class="persona-card" data-p="mentor" onclick="selectPersona(this)"><div class="pi"></div><div class="pt">Strict Mentor</div><div class="ps">Direct, tough love</div></div>
+        <div class="persona-card" data-p="tutor" onclick="selectPersona(this)"><div class="pi"></div><div class="pt">Study Buddy</div><div class="ps">Patient, step-by-step</div></div>
+        <div class="persona-card" data-p="biz" onclick="selectPersona(this)"><div class="pi"></div><div class="pt">Business Coach</div><div class="ps">Startup, entrepreneur</div></div>
       </div>
     </div>
     <div class="sm-footer">
@@ -1040,8 +1147,138 @@ function setTheme(t,save=true){
 function toast(msg,dur=2500){const t=$('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),dur);}
 
 // ═══ FEATURES ═══
-function toggleF(f){features[f]=!features[f];$('fp-'+f).classList.toggle('on',features[f]);toast(f.toUpperCase()+(features[f]?' ON ✅':' OFF ❌'));}
-function setLang(l){currentLang=l;sk('lang',l);toast('Language: '+l);}
+function toggleF(f){features[f]=!features[f];$('fp-'+f).classList.toggle('on',features[f]);toast(f.toUpperCase()+(features[f]?' ON ✓':' OFF ✕'));}
+// ═══ UI TRANSLATIONS ═══
+const UI={
+  hinglish:{
+    newChat:'New Chat',pinned:'Pinned',recent:'Recent',memory:'Memory',bookmarks:'Bookmarks',
+    theme:'THEME',offline:'Offline',export:'Export',settings:'Settings',
+    connect:'Connect',connected:'Connected ✓',
+    placeholder:'UGNOX se kuch bhi pooch...',
+    filter:'⊘ Filter',search:'⊕ Search',mem:'Memory',markdown:'# Markdown',voice:'◉ Voice',code:'> Code Run',
+    memTitle:'Long-term Memory',memSearch:'Memories search karo...',memAdd:'Memory add karo...',add:'Add',
+    bkTitle:'Bookmarks',settingsTitle:'UGNOX Settings',apiKeys:'API Keys',profile:'Profile',persona:'AI Persona',
+    cancel:'Cancel',save:'Save & Connect',
+    installTitle:'Install UGNOX',installSub:'App ki tarah use karo — offline bhi!',install:'Install',later:'Later',
+    wtitle:'Hey! UGNOX V4',wsub:'Settings mein Groq key daalo aur connect karo',
+    q1t:'Startup Idea',q1s:'Full business plan generate karo',q2t:'Code Debug',q2s:'Error fix karo instantly',
+    q3t:'Image Generate',q3s:'FLUX se banao creative images',q4t:'Data Charts',q4s:'Live charts visualize karo',
+    q5t:'Roast Mode',q5s:'Agar himmat ho toh ',q6t:'Latest News',q6s:'Real-time web search',
+    qp1:'Mujhe ek zero-investment India startup idea de with full roadmap',qp2:'Mera code debug karo — TypeError: cannot read properties of undefined',
+    qp3:'Ek cyberpunk Mumbai ka ultra-detailed AI image banao',qp4:'India GDP growth chart banao 2019 se 2024 tak with analysis',
+    qp5:'Mujhe legendary roast karo bhai — full power on karo',qp6:'Aaj ki top 5 tech news India mein kya hai?',
+    groqHint:'AI brain — 100% free, ultra-fast Llama models',tavilyHint:'1000 free searches/month — real-time internet',
+    togetherHint:'FLUX image generation — free credits on signup',
+    nameLabel:'Aapka Naam',namePH:'Umang',ageLabel:'Aapki Umar',aboutLabel:'Aapke Baare Mein',aboutPH:'Commerce student, AI mein interest...',
+    newChatWelcome:'New Chat',newChatSub:'Kya poochna hai',connectToast:'Connected',disconnectToast:'Disconnected',
+    toastConnecting:'Saved. Connecting...',pinnedEmpty:'Koi pinned chat nahi',chatsEmpty:'Abhi koi chat nahi',
+  },
+  hindi:{
+    newChat:'नई बातचीत',pinned:'पिन किए गए',recent:'हाल के',memory:'स्मृति',bookmarks:'बुकमार्क',
+    theme:'थीम',offline:'ऑफलाइन',export:'निर्यात',settings:'सेटिंग्स',
+    connect:'कनेक्ट करें',connected:'कनेक्टेड ✓',
+    placeholder:'UGNOX से कुछ भी पूछें...',
+    filter:'⊘ फ़िल्टर',search:'⊕ खोज',mem:'स्मृति',markdown:'# मार्कडाउन',voice:'◉ आवाज़',code:'> कोड रन',
+    memTitle:'दीर्घकालिक स्मृति',memSearch:'स्मृतियाँ खोजें...',memAdd:'स्मृति जोड़ें...',add:'जोड़ें',
+    bkTitle:'बुकमार्क',settingsTitle:'UGNOX सेटिंग्स',apiKeys:'API कुंजियाँ',profile:'प्रोफाइल',persona:'AI व्यक्तित्व',
+    cancel:'रद्द करें',save:'सेव करें और कनेक्ट करें',
+    installTitle:'UGNOX इंस्टॉल करें',installSub:'ऐप की तरह उपयोग करें!',install:'इंस्टॉल',later:'बाद में',
+    wtitle:'नमस्ते! UGNOX V4',wsub:'सेटिंग्स में Groq key डालें और कनेक्ट करें',
+    q1t:'स्टार्टअप आइडिया',q1s:'पूरी बिज़नेस प्लान बनाएं',q2t:'कोड डीबग',q2s:'एरर तुरंत ठीक करें',
+    q3t:'इमेज बनाएं',q3s:'FLUX से रचनात्मक चित्र',q4t:'डेटा चार्ट',q4s:'लाइव चार्ट देखें',
+    q5t:'रोस्ट मोड',q5s:'हिम्मत है तो ',q6t:'ताज़ा खबर',q6s:'रियल-टाइम वेब सर्च',
+    qp1:'मुझे एक zero-investment भारत startup idea दें पूरे roadmap के साथ',qp2:'मेरा कोड debug करो — यह error आ रही है: TypeError',
+    qp3:'एक cyberpunk मुंबई की ultra-detailed AI image बनाओ',qp4:'भारत GDP growth chart बनाओ 2019 से 2024 तक',
+    qp5:'मुझे legendary roast करो भाई — full power',qp6:'आज की top 5 tech news भारत में क्या है?',
+    groqHint:'AI दिमाग — 100% मुफ्त, ultra-fast Llama models',tavilyHint:'1000 मुफ्त खोज/माह — real-time internet',
+    togetherHint:'FLUX image generation — signup पर मुफ्त credits',
+    nameLabel:'आपका नाम',namePH:'उमंग',ageLabel:'आपकी उम्र',aboutLabel:'आपके बारे में',aboutPH:'Commerce छात्र, AI में रुचि...',
+    newChatWelcome:'नई बातचीत',newChatSub:'क्या पूछना है',connectToast:'Connected',disconnectToast:'डिस्कनेक्ट',
+    toastConnecting:'Saved. Connecting...',pinnedEmpty:'कोई pinned chat नहीं',chatsEmpty:'अभी कोई chat नहीं',
+  },
+  english:{
+    newChat:'New Chat',pinned:'Pinned',recent:'Recent',memory:'Memory',bookmarks:'Bookmarks',
+    theme:'THEME',offline:'Offline',export:'Export',settings:'Settings',
+    connect:'Connect',connected:'Connected ✓',
+    placeholder:'Ask UGNOX anything...',
+    filter:'⊘ Filter',search:'⊕ Search',mem:'Memory',markdown:'# Markdown',voice:'◉ Voice',code:'> Code Run',
+    memTitle:'Long-term Memory',memSearch:'Search memories...',memAdd:'Add a memory...',add:'Add',
+    bkTitle:'Bookmarks',settingsTitle:'UGNOX Settings',apiKeys:'API Keys',profile:'Profile',persona:'AI Persona',
+    cancel:'Cancel',save:'Save & Connect',
+    installTitle:'Install UGNOX',installSub:'Use like an app — works offline too!',install:'Install',later:'Later',
+    wtitle:'Hey! UGNOX V4',wsub:'Add your Groq key in Settings and connect',
+    q1t:'Startup Idea',q1s:'Generate a full business plan',q2t:'Debug Code',q2s:'Fix errors instantly',
+    q3t:'Generate Image',q3s:'Create images with FLUX',q4t:'Data Charts',q4s:'Visualize live data',
+    q5t:'Roast Mode',q5s:'If you dare ',q6t:'Latest News',q6s:'Real-time web search',
+    qp1:'Give me a zero-investment India startup idea with full roadmap and market analysis',
+    qp2:'Debug my code — this error is occurring: TypeError: cannot read properties of undefined',
+    qp3:'Create an ultra-detailed cyberpunk Mumbai AI image',qp4:'Create India GDP growth chart 2019 to 2024 with analysis',
+    qp5:'Give me a legendary roast — full power on',qp6:'What are the top 5 tech news in India today?',
+    groqHint:'AI brain — 100% free, ultra-fast Llama models',tavilyHint:'1000 free searches/month — real-time internet',
+    togetherHint:'FLUX image generation — free credits on signup',
+    nameLabel:'Your Name',namePH:'Umang',ageLabel:'Your Age',aboutLabel:'About You',aboutPH:'Commerce student, interested in AI...',
+    newChatWelcome:'New Chat',newChatSub:'What do you want to ask',connectToast:'Connected',disconnectToast:'Disconnected',
+    toastConnecting:'Saved. Connecting...',pinnedEmpty:'No pinned chats',chatsEmpty:'No chats yet',
+  }
+};
+function t(key){return (UI[currentLang]||UI.hinglish)[key]||key;}
+
+function applyUILang(){
+  const ncb=document.querySelector('.new-chat-btn');
+  if(ncb)ncb.lastChild.textContent=' '+t('newChat');
+  const sects=document.querySelectorAll('.sidebar-sect');
+  if(sects[0])sects[0].textContent=t('pinned');
+  if(sects[1])sects[1].textContent=t('recent');
+  const mbadges=document.querySelectorAll('.mem-badge');
+  if(mbadges[0]){const sp=mbadges[0].querySelectorAll('span');if(sp[1])sp[1].textContent=t('memory');}
+  if(mbadges[1]){const sp=mbadges[1].querySelectorAll('span');if(sp[1])sp[1].textContent=t('bookmarks');}
+  const tlab=document.querySelector('.theme-label');if(tlab)tlab.textContent=t('theme');
+  const stxt=document.getElementById('stxt');if(stxt&&!connected)stxt.textContent=t('offline');
+  const cb=document.getElementById('connectbtn');if(cb)cb.textContent=connected?t('connected'):t('connect');
+  const inp=document.getElementById('msginput');if(inp)inp.placeholder=t('placeholder');
+  const fpf=document.getElementById('fp-filter');if(fpf)fpf.textContent=t('filter');
+  const fps=document.getElementById('fp-search');if(fps)fps.textContent=t('search');
+  const fpm=document.getElementById('fp-memory');if(fpm)fpm.textContent=t('mem');
+  const fpmd=document.getElementById('fp-md');if(fpmd)fpmd.textContent=t('markdown');
+  const fpt=document.getElementById('fp-tts');if(fpt)fpt.textContent=t('voice');
+  const fpc=document.getElementById('fp-code');if(fpc)fpc.textContent=t('code');
+  const mpt=document.querySelector('#mempanel .panel-title');if(mpt)mpt.textContent=t('memTitle');
+  const msr=document.getElementById('mem-search');if(msr)msr.placeholder=t('memSearch');
+  const nm=document.getElementById('new-mem');if(nm)nm.placeholder=t('memAdd');
+  const ab=document.querySelector('.add-mem-btn');if(ab)ab.textContent=t('add');
+  const bkt=document.querySelector('#bookmarks-panel .panel-title');if(bkt)bkt.textContent=t('bkTitle');
+  const smt=document.querySelector('.sm-title');if(smt)smt.textContent=t('settingsTitle');
+  const scn=document.querySelector('.sm-cancel');if(scn)scn.textContent=t('cancel');
+  const ssv=document.querySelector('.sm-save');if(ssv)ssv.textContent=t('save');
+  const hints=document.querySelectorAll('.sfield-hint');
+  if(hints[0])hints[0].textContent=t('groqHint');
+  if(hints[1])hints[1].textContent=t('tavilyHint');
+  if(hints[2])hints[2].textContent=t('togetherHint');
+  const sn=document.getElementById('s-name');if(sn)sn.placeholder=t('namePH');
+  const sa=document.getElementById('s-about');if(sa)sa.placeholder=t('aboutPH');
+  const smsec=document.querySelectorAll('.sm-section');
+  if(smsec[0])smsec[0].firstChild.textContent=t('apiKeys');
+  if(smsec[1])smsec[1].firstChild.textContent=t('profile');
+  if(smsec[2])smsec[2].firstChild.textContent=t('persona');
+  const wt=document.getElementById('w-title');
+  if(wt)wt.textContent=connected?('Hey '+(gk('name')||'Umang')+'! UGNOX V4'):t('wtitle');
+  const ws=document.querySelector('.w-sub');if(ws&&!connected)ws.textContent=t('wsub');
+  const cards=document.querySelectorAll('.qcard');
+  const cd=[
+    {tt:'q1t',ss:'q1s',p:'qp1'},{tt:'q2t',ss:'q2s',p:'qp2'},
+    {tt:'q3t',ss:'q3s',p:'qp3'},{tt:'q4t',ss:'q4s',p:'qp4'},
+    {tt:'q5t',ss:'q5s',p:'qp5'},{tt:'q6t',ss:'q6s',p:'qp6'}
+  ];
+  cards.forEach((c,i)=>{
+    if(!cd[i])return;
+    const ti=c.querySelector('.qcard-title');const si=c.querySelector('.qcard-sub');
+    if(ti)ti.textContent=t(cd[i].tt);if(si)si.textContent=t(cd[i].ss);
+    c.onclick=()=>quick(t(cd[i].p));
+  });
+  renderChatList();
+}
+
+function setLang(l){currentLang=l;sk('lang',l);applyUILang();toast('⊕ Language: '+l.charAt(0).toUpperCase()+l.slice(1));}
 
 // ═══ SIDEBAR ═══
 function toggleSidebar(){
@@ -1087,12 +1324,12 @@ function updateKeyStatuses(){
   [['s-groq-st',gk('groq')],['s-tavily-st',gk('tavily')],['s-together-st',gk('together')]].forEach(([id,k])=>{
     const el=$(id);if(!el)return;
     el.className='skey-st '+(k&&k.length>10?'ok':'miss');
-    el.textContent=k&&k.length>10?'✅ Saved: '+k.slice(0,8)+'...':'⚪ Not set';
+    el.textContent=k&&k.length>10?'Saved: '+k.slice(0,8)+'...':'Not set';
   });
 }
 function saveSettings(){
   const groq=$('s-groq').value.trim();
-  if(!groq){toast('⚠️ Groq key required!');return;}
+  if(!groq){toast('!️ Groq key required!');return;}
   sk('groq',groq);
   if($('s-tavily').value.trim())sk('tavily',$('s-tavily').value.trim());
   if($('s-together').value.trim())sk('together',$('s-together').value.trim());
@@ -1102,7 +1339,7 @@ function saveSettings(){
   const sel=document.querySelector('.persona-card.on');
   if(sel){currentPersona=sel.dataset.p;sk('persona',currentPersona);}
   updatePersonaLabel();
-  closeSettings();toast('✅ Saved! Connecting...');
+  closeSettings();toast('Saved. Connecting...');
   setTimeout(autoConnect,400);
 }
 function updatePersonaLabel(){
@@ -1120,10 +1357,10 @@ function autoConnect(){
   $('stxt').classList.add('on');
   $('msginput').disabled=false;$('sendbtn').disabled=false;$('msginput').focus();
   const name=gk('name')||'Umang';
-  const wt=$('w-title');if(wt)wt.textContent=`Hey ${name}! UGNOX V4 🚀`;
+  const wt=$('w-title');if(wt)wt.textContent=`Hey ${name}! UGNOX V4`;
 }
 function toggleConnect(){
-  if(!connected){const k=gk('groq');if(!k){openSettings();return;}autoConnect();toast('✅ Connected!');}
+  if(!connected){const k=gk('groq');if(!k){openSettings();return;}autoConnect();toast('Connected');}
   else{connected=false;$('connectbtn').textContent='Connect';$('connectbtn').classList.remove('on');$('sdot').classList.remove('on');$('stxt').textContent='Offline';$('stxt').classList.remove('on');$('msginput').disabled=true;$('sendbtn').disabled=true;history=[];toast('Disconnected');}
 }
 
@@ -1147,10 +1384,10 @@ function toggleVoice(){
   if(isRecording){recognition.stop();return;}
   const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
   recognition=new SR();recognition.lang=currentLang==='english'?'en-US':'hi-IN';recognition.interimResults=false;
-  recognition.onstart=()=>{isRecording=true;$('voicebtn').classList.add('rec');$('voicebtn').textContent='🔴';toast('🎤 Bol bhai...');};
+  recognition.onstart=()=>{isRecording=true;$('voicebtn').classList.add('rec');$('voicebtn').textContent='●';toast('⏺ Bol bhai...');};
   recognition.onresult=e=>{$('msginput').value=e.results[0][0].transcript;$('msginput').dispatchEvent(new Event('input'));};
-  recognition.onend=()=>{isRecording=false;$('voicebtn').classList.remove('rec');$('voicebtn').textContent='🎤';};
-  recognition.onerror=()=>{isRecording=false;$('voicebtn').classList.remove('rec');$('voicebtn').textContent='🎤';};
+  recognition.onend=()=>{isRecording=false;$('voicebtn').classList.remove('rec');$('voicebtn').textContent='⏺';};
+  recognition.onerror=()=>{isRecording=false;$('voicebtn').classList.remove('rec');$('voicebtn').textContent='⏺';};
   recognition.start();
 }
 
@@ -1162,12 +1399,12 @@ function handleFile(input){
     reader.onload=e=>{
       pendingFile={name:file.name,type:'image',mime:file.type};
       pendingFileData=e.target.result.split(',')[1];
-      showFilePreview('🖼️ '+file.name);
+      showFilePreview(''+file.name);
     };reader.readAsDataURL(file);
   }else{
     reader.onload=e=>{
       pendingFile={name:file.name,type:'text',content:e.target.result.slice(0,8000)};
-      showFilePreview('📄 '+file.name);
+      showFilePreview(''+file.name);
     };reader.readAsText(file);
   }
   input.value='';
@@ -1195,9 +1432,9 @@ function addMsg(role,text,animate=false,msgId=null){
   const time=document.createElement('span');time.className='msg-time';time.textContent=new Date().toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'});
   const acts=document.createElement('div');acts.className='msg-actions';
   if(role==='ai'){
-    acts.innerHTML=`<button class="mact-btn" onclick="bookmarkMsg('${id}')" title="Bookmark">🔖</button><button class="mact-btn" onclick="copyMsg('${id}')" title="Copy">📋</button><button class="mact-btn" onclick="speakMsg('${id}')" title="Listen">🔊</button>`;
+    acts.innerHTML=`<button class="mact-btn" onclick="bookmarkMsg('${id}')" title="Bookmark">◇</button><button class="mact-btn" onclick="copyMsg('${id}')" title="Copy"></button><button class="mact-btn" onclick="speakMsg('${id}')" title="Listen">◉</button>`;
   }else{
-    acts.innerHTML=`<button class="mact-btn" onclick="editMsg('${id}')" title="Edit">✏️</button><button class="mact-btn" onclick="copyMsg('${id}')" title="Copy">📋</button><button class="mact-btn" onclick="pinChat()" title="Pin">📌</button>`;
+    acts.innerHTML=`<button class="mact-btn" onclick="editMsg('${id}')" title="Edit">✎</button><button class="mact-btn" onclick="copyMsg('${id}')" title="Copy"></button><button class="mact-btn" onclick="pinChat()" title="Pin">◆</button>`;
   }
   meta.appendChild(name);meta.appendChild(time);meta.appendChild(acts);
   const txt=document.createElement('div');txt.className='msg-text';txt.id=id+'-txt';
@@ -1214,7 +1451,13 @@ function addMsg(role,text,animate=false,msgId=null){
 
 function renderMarkdown(el,text){
   el.innerHTML=marked.parse(text);
+  // Highlight.js syntax highlighting
+  if(typeof hljs!=='undefined'){
+    el.querySelectorAll('pre code').forEach(block=>{hljs.highlightElement(block);});
+  }
   el.querySelectorAll('pre').forEach(pre=>{
+    const code=pre.querySelector('code');
+    const lang=code?.className?.match(/language-(\w+)/)?.[1]||code?.className?.match(/hljs\s+(\w+)/)?.[1]||'';
     const btn=document.createElement('button');btn.className='copy-code-btn';btn.textContent='Copy';
     btn.onclick=()=>{navigator.clipboard.writeText(pre.textContent.replace(/^Copy/,'').trim());toast('Copied!');};
     pre.insertBefore(btn,pre.firstChild);
@@ -1289,9 +1532,9 @@ function bookmarkMsg(id){
   bookmarks.push({id:Date.now(),text:t,time:new Date().toLocaleTimeString()});
   localStorage.setItem('ux4_bk',JSON.stringify(bookmarks));
   $('bkcount').textContent=bookmarks.length;
-  txt.classList.add('bookmarked');toast('🔖 Bookmarked!');
+  txt.classList.add('bookmarked');toast('◇ Bookmarked!');
 }
-function copyMsg(id){const txt=$(id+'-txt');if(txt){navigator.clipboard.writeText(txt.textContent);toast('📋 Copied!');}}
+function copyMsg(id){const txt=$(id+'-txt');if(txt){navigator.clipboard.writeText(txt.textContent);toast('Copied');}}
 function speakMsg(id){const txt=$(id+'-txt');if(txt)speakText(txt.textContent);}
 function editMsg(id){
   const wrap=$(id);const txtEl=$(id+'-txt');if(!wrap||!txtEl)return;
@@ -1313,7 +1556,7 @@ function pinChat(){
     chats.unshift({id,title,history:[...history],pinned:true});
     if(!pinnedIds.includes(id))pinnedIds.push(id);
     localStorage.setItem('ux4_pins',JSON.stringify(pinnedIds));
-    saveChats();toast('📌 Chat pinned!');
+    saveChats();toast('Chat pinned');
   }
 }
 function renderBkList(){
@@ -1335,7 +1578,7 @@ function renderChatList(){
   chats.forEach(c=>{
     const item=document.createElement('div');item.className='chat-item'+(c.id===window._curChatId?' active':'');
     const isPinned=pinnedIds.includes(c.id);
-    item.innerHTML=`<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>${c.title}${isPinned?'<span class="pin-icon">📌</span>':''}`;
+    item.innerHTML=`<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>${c.title}${isPinned?'<span class="pin-icon">◆</span>':''}`;
     item.onclick=()=>loadChat(c);
     if(isPinned)$('pinlist').appendChild(item);else $('chatlist').appendChild(item);
   });
@@ -1346,7 +1589,10 @@ function newChat(){
   if(history.length>0){const title=(gk('name')||'Umang')+' — '+history[0]?.content?.slice(0,28)+'...';const id=Date.now();chats.unshift({id,title,history:[...history]});if(chats.length>30)chats.pop();saveChats();}
   history=[];window._curChatId=null;$('msgarea').innerHTML='';clearFile();
   const w=document.createElement('div');w.id='welcome';w.style.cssText='flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;padding:40px 24px;animation:fadeIn 0.5s ease;';
-  w.innerHTML=`<div class="w-logo-wrap"><div class="w-logo">UX</div><div><div class="w-title">New Chat 🚀</div><div class="w-sub">Kya poochna hai ${gk('name')||'bhai'}?</div></div></div>`;
+  w.innerHTML=`<div class="w-logo-wrap"><div class="w-logo"><svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" width="42" height="42">
+  <path d="M50 10C50 40 40 50 10 50C40 50 50 60 50 90C50 60 60 50 90 50C60 50 50 40 50 10Z" fill="url(#gl1)"/>
+  <defs><linearGradient id="gl1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#a78bfa"/><stop offset="100%" style="stop-color:#e2e8f0"/></linearGradient></defs>
+</svg></div><div><div class="w-title">New Chat</div><div class="w-sub">Kya poochna hai ${gk('name')||'bhai'}?</div></div></div>`;
   $('msgarea').appendChild(w);
 }
 
@@ -1360,7 +1606,7 @@ function renderMemList(filter=''){
 }
 function filterMem(v){renderMemList(v);}
 function delMem(i){memories.splice(i,1);saveMemories();toast('Deleted');}
-function addMemManual(){const v=$('new-mem').value.trim();if(!v)return;memories.push(v);saveMemories();$('new-mem').value='';toast('🧠 Memory saved!');}
+function addMemManual(){const v=$('new-mem').value.trim();if(!v)return;memories.push(v);saveMemories();$('new-mem').value='';toast('Memory saved!');}
 function autoSaveMem(txt){
   if(!features.memory)return;
   const triggers=['mera naam','my name','i am','main hoon','mujhe pasand','i like','mera goal','my goal','i study','main padhta'];
@@ -1411,27 +1657,34 @@ function getSystem(){
     tutor:`Patient study buddy ki tarah — clear explanations, step-by-step, encouraging`,
     biz:`Business coach ki tarah — entrepreneurial, strategic, startup-focused, ambitious`
   };
-  return `You are UGNOX V4, an advanced AI companion of ${name} (age ${age}, India. ${about}).
-Respond ${lang}.
-Personality: ${personas[currentPersona]||personas.friend}
-Special capabilities: web search (Tavily), image generation via [IMAGE: prompt], charts via \`\`\`chart{Chart.js JSON}\`\`\`, markdown formatting.
-Address the user as "${name}". You are their thinking partner and AI best friend.`;
+  return `You are UGNOX V4, personal AI of ${name} (age ${age}, India. ${about}).
+
+STRICT RULES — ALWAYS FOLLOW:
+1. No Yapping: Zero filler. No "Here is your answer", "Great question!", "I hope this helps". Direct answer only.
+2. Concise by default: Bullets for lists. Paragraphs max 2 sentences. Get to the point immediately.
+3. Tone: Mix of Best Friend + Sarcastic Tech Bro. Use Hinglish naturally. Light roasting is fine.
+4. Bold key terms for scannability. Use markdown tables for all comparisons.
+5. Context: ${name} is interested in Geopolitics, Tata/Mahindra automobiles, and runs a recycling business in Bihar. Only bring up if relevant.
+6. Capabilities: web search (Tavily), image gen via [IMAGE: prompt], charts via \`\`\`chart{...}\`\`\`, code execution.
+
+Respond ${lang}. Persona: ${personas[currentPersona]||personas.friend}
+Address user as "${name}".`;
 }
 
 // ═══ EXPORT ═══
 function toggleExportMenu(){const m=$('exportmenu');m.style.display=m.style.display==='none'?'block':'none';}
 document.addEventListener('click',e=>{if(!$('exportwrap').contains(e.target))$('exportmenu').style.display='none';});
-function exportTXT(){const l=history.map(m=>`[${m.role.toUpperCase()}] ${m.content}`).join('\n\n');const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([`UGNOX V4 Chat\n${'='.repeat(40)}\n\n${l}`],{type:'text/plain'}));a.download=`UGNOX_${Date.now()}.txt`;a.click();toast('📄 TXT exported!');$('exportmenu').style.display='none';}
-function exportJSON(){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify({exported:new Date().toISOString(),messages:history},null,2)],{type:'application/json'}));a.download=`UGNOX_${Date.now()}.json`;a.click();toast('🗂 JSON exported!');$('exportmenu').style.display='none';}
-function exportPDF(){if(typeof jspdf==='undefined'){toast('PDF library load ho rahi hai, try again');return;}const{jsPDF}=jspdf;const doc=new jsPDF();doc.setFontSize(16);doc.text('UGNOX V4 Chat',20,20);doc.setFontSize(10);let y=35;history.forEach(m=>{const lines=doc.splitTextToSize(`[${m.role==='user'?(gk('name')||'Umang'):'UGNOX'}]: ${m.content}`,170);if(y+lines.length*5>280){doc.addPage();y=20;}doc.text(lines,20,y);y+=lines.length*5+6;});doc.save(`UGNOX_${Date.now()}.pdf`);toast('📋 PDF exported!');$('exportmenu').style.display='none';}
-function shareChat(){const txt=history.map(m=>`**${m.role==='user'?(gk('name')||'U'):'UGNOX'}:** ${m.content}`).join('\n\n');const url='data:text/html,'+encodeURIComponent(`<html><head><title>UGNOX Chat</title><style>body{font-family:sans-serif;max-width:700px;margin:40px auto;padding:0 20px;background:#0a0a0f;color:#e8e8f0;}pre{white-space:pre-wrap;}</style></head><body><h2>UGNOX V4 Chat</h2><pre>${txt}</pre></body></html>`);navigator.clipboard.writeText(url).then(()=>toast('🔗 Share link copied!'));$('exportmenu').style.display='none';}
+function exportTXT(){const l=history.map(m=>`[${m.role.toUpperCase()}] ${m.content}`).join('\n\n');const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([`UGNOX V4 Chat\n${'='.repeat(40)}\n\n${l}`],{type:'text/plain'}));a.download=`UGNOX_${Date.now()}.txt`;a.click();toast('TXT exported');$('exportmenu').style.display='none';}
+function exportJSON(){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify({exported:new Date().toISOString(),messages:history},null,2)],{type:'application/json'}));a.download=`UGNOX_${Date.now()}.json`;a.click();toast('JSON exported!');$('exportmenu').style.display='none';}
+function exportPDF(){if(typeof jspdf==='undefined'){toast('PDF library load ho rahi hai, try again');return;}const{jsPDF}=jspdf;const doc=new jsPDF();doc.setFontSize(16);doc.text('UGNOX V4 Chat',20,20);doc.setFontSize(10);let y=35;history.forEach(m=>{const lines=doc.splitTextToSize(`[${m.role==='user'?(gk('name')||'Umang'):'UGNOX'}]: ${m.content}`,170);if(y+lines.length*5>280){doc.addPage();y=20;}doc.text(lines,20,y);y+=lines.length*5+6;});doc.save(`UGNOX_${Date.now()}.pdf`);toast('PDF exported!');$('exportmenu').style.display='none';}
+function shareChat(){const txt=history.map(m=>`**${m.role==='user'?(gk('name')||'U'):'UGNOX'}:** ${m.content}`).join('\n\n');const url='data:text/html,'+encodeURIComponent(`<html><head><title>UGNOX Chat</title><style>body{font-family:sans-serif;max-width:700px;margin:40px auto;padding:0 20px;background:#0a0a0f;color:#e8e8f0;}pre{white-space:pre-wrap;}</style></head><body><h2>UGNOX V4 Chat</h2><pre>${txt}</pre></body></html>`);navigator.clipboard.writeText(url).then(()=>toast('Share link copied'));$('exportmenu').style.display='none';}
 
 // ═══ SEND ═══
 async function send(){
   if(!connected||busy)return;
   const inp=$('msginput');const txt=inp.value.trim();if(!txt&&!pendingFile)return;
   if(features.filter&&hasBad(txt)){
-    hideWelcome();const w=document.createElement('div');w.className='filter-warn';w.innerHTML='<div class="filter-warn-inner">🚫 Safe Filter on hai — yeh mat bol bhai. Neeche toggle karo filter band karne ke liye.</div>';$('msgarea').appendChild(w);$('msgarea').scrollTop=$('msgarea').scrollHeight;inp.value='';return;
+    hideWelcome();const w=document.createElement('div');w.className='filter-warn';w.innerHTML='<div class="filter-warn-inner">Safe Filter active — yeh mat bol bhai. Neeche toggle karo filter band karne ke liye.</div>';$('msgarea').appendChild(w);$('msgarea').scrollTop=$('msgarea').scrollHeight;inp.value='';return;
   }
   inp.value='';inp.style.height='auto';
   addMsg('user',txt);
@@ -1443,12 +1696,18 @@ async function send(){
   let searchCtx='';
   if(needsSearch(txt)){
     const tk=gk('tavily');
-    if(tk){setStatus('🔍 Web search ho rahi hai...');searchCtx=await doSearch(txt)||'';if(searchCtx)toast('🌐 Fresh data mila!');}
+    if(tk){setStatus('Searching web...');searchCtx=await doSearch(txt)||'';if(searchCtx)toast('Fresh data loaded');}
   }
 
   const today=new Date().toLocaleDateString('en-IN',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
   const searchInfo=searchCtx?`\n\nLIVE DATA (${today}):\n${searchCtx}`:'\n\nToday: '+today;
-  const sysPrompt=getSystem()+getMemCtx()+searchInfo;
+  let sysPrompt=getSystem()+getMemCtx()+searchInfo;
+  // Concise mode trigger
+  const tl=txt.toLowerCase();
+  if(tl.includes('chhota')||tl.includes('concise')||tl.includes('short')||tl.includes('brief')||tl.includes('tldr')||tl.includes('summary')){
+    sysPrompt+='\nCRITICAL: Answer in under 50 words. Be brutal with brevity. No padding.';
+    toast('Concise mode');
+  }
 
   let msgs=[{role:'system',content:sysPrompt},...history];
   if(fileData){
@@ -1456,16 +1715,16 @@ async function send(){
     if(lastUserIdx>=0){msgs[lastUserIdx]={role:'user',content:[{type:'text',text:msgs[lastUserIdx].content},{type:'image_url',image_url:{url:`data:${fileData.mime};base64,${fileData.data}`}}]};}
   }
 
-  setStatus('🧠 Soch raha hai...');
+  setStatus('◈ Soch raha hai...');
   try{
     const res=await fetch('https://api.groq.com/openai/v1/chat/completions',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+gk('groq')},body:JSON.stringify({model:$('modelsel').value,max_tokens:1500,temperature:0.87,messages:msgs})});
     const data=await res.json();hideTyping();
-    if(data.error){addMsg('ai','❌ Error: '+data.error.message);return;}
+    if(data.error){addMsg('ai','Error: '+data.error.message);return;}
     let reply=data.choices[0].message.content;
 
     const imgM=reply.match(/\[IMAGE:\s*([\s\S]*?)\]/);
     if(imgM){
-      showTyping();setStatus('🎨 Image generate ho rahi hai...');
+      showTyping();setStatus('◈ Image generate ho rahi hai...');
       const imgR=await generateImage(imgM[1]);
       reply=reply.replace(imgM[0],'').trim()+imgR;
       hideTyping();
@@ -1477,11 +1736,41 @@ async function send(){
     setTimeout(()=>{tryRenderChart(reply,el.parentElement);},100);
     autoSaveMem(txt);
     if(features.tts&&reply.length<300)setTimeout(()=>speakText(reply),400);
-  }catch(e){hideTyping();addMsg('ai','Network error bhai 😅 Internet check karo.');}
+  }catch(e){hideTyping();addMsg('ai','Network error. Check your internet.');}
   finally{busy=false;if(connected)$('sendbtn').disabled=false;$('msginput').focus();}
 }
 
-function quick(t){if(!connected){toast('⚠️ Pehle Settings mein key daalo aur Connect karo!');return;}$('msginput').value=t;send();}
+function quick(t){if(!connected){toast('Connect karo pehle — Settings mein key daalo.');return;}$('msginput').value=t;send();}
+
+// ═══ SUGGESTION CHIPS ═══
+const CHIP_POOL=[
+  'Roast me >','Quick business idea →','Aaj ki news ≡','Code debug karo ◎',
+  'Motivate karo','RCB ka scene kya hai','Meme explain karo','Geopolitics update',
+  'Startup idea do','Best Tata truck kaun sa?','Python hello world','Short me samjhao',
+  'Recycling business tips','Life advice do bhai ◈','AI vs humans debate','Bihar facts',
+];
+function renderChips(){
+  const wrap=document.getElementById('suggestion-chips');
+  if(!wrap)return;
+  const pool=[...CHIP_POOL].sort(()=>Math.random()-0.5).slice(0,4);
+  wrap.innerHTML='';
+  pool.forEach(c=>{
+    const btn=document.createElement('button');
+    btn.className='chip';btn.textContent=c;
+    btn.onclick=()=>{
+      if(!connected){toast('Connect karo pehle.');return;}
+      document.getElementById('msginput').value=c;
+      send();
+      setTimeout(renderChips,200);
+    };
+    wrap.appendChild(btn);
+  });
+  // Refresh chip btn
+  const ref=document.createElement('button');
+  ref.className='chip';ref.textContent='↻';ref.title='Refresh';
+  ref.onclick=renderChips;
+  wrap.appendChild(ref);
+}
 
 // ═══ EVENTS ═══
 $('msginput').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();send();}});
@@ -1595,11 +1884,14 @@ renderMemList();renderChatList();
 $('memcount').textContent=memories.length;
 $('bkcount').textContent=bookmarks.length;
 updatePersonaLabel();
-if(gk('lang'))$('lang-sel').value=gk('lang');
+if(gk('lang')){$('lang-sel').value=gk('lang');}
 document.querySelectorAll('.persona-card').forEach(c=>c.classList.toggle('on',c.dataset.p===currentPersona));
+// Apply UI language on load
+setTimeout(applyUILang, 50);
+renderChips();
 
 if(gk('groq')){
-  setTimeout(()=>{autoConnect();updateKeyStatuses();},300);
+  setTimeout(()=>{autoConnect();updateKeyStatuses();applyUILang();},300);
 }else{
   setTimeout(()=>openSettings(),700);
 }
